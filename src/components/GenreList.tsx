@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   Spinner,
+  useColorMode,
 } from "@chakra-ui/react";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
@@ -17,6 +18,7 @@ interface Props {
 
 const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
+  const { colorMode } = useColorMode();
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -41,7 +43,9 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
                 fontWeight={g.id === selectedGenre?.id ? "bold" : "normal"}
                 fontSize={"lg"}
                 variant={"link"}
+                className="sidebar"
                 onClick={() => onSelectedGenre(g)}
+                color={colorMode === "light" ? "gray.800" : "gray.100"}
               >
                 {g.name}
               </Button>
